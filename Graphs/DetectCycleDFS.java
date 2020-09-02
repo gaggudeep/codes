@@ -23,7 +23,7 @@ class Graph
 	}
 }
 
-class DetectCycle extends Graph
+class DetectCycleDFS extends Graph
 {
 
 	static boolean hasCycle(Graph g, int V)
