@@ -4,24 +4,25 @@ class nextGreaterNobWith11
 {
 	static int nextGrt(int n)
 	{
-		int ans = n + 1;
-		for(int i = ans ; ; i++)
+		for(int i = n + 1 ; ; i++)
 		{
-			int prev = 0;
-			while(n != 0)
+			int prev = 0, cur = i;
+			while(cur > 0)
 			{
-				if(i % 2 == 1 && prev == 1)
+				if(cur % 2 == 1 && prev == 1)
 				{
-					prev = i % 2;
-					i /= 2;
+					break;
 				}
-				return i;
+				prev = cur % 2;
+				cur /= 2;
 			}
+			if(cur <= 0)
+				return i;
 		}
 	}
 
 	public static void main(String args[])
 	{
-		System.out.println(nextGrt(4));
+		System.out.println(nextGrt(5));
 	}
 }
