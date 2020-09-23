@@ -19,17 +19,37 @@ class Subtree
 			return false;
 		if(r1.val == r2.val)
 		{
-			ArrayList<Integer> r1Level = new ArrayList<Integer> (), r2Level = new ArrayList<>();
-			levelOrder(r1, r1Level);
+			ArrayList<Integer> r2Level = new ArrayList<>();
 			levelOrder(r2, r2Level);
-			for(int i = 0 ; i < r2Level.size() ; i++)
-			{
-				if(r1Level.get(i) != r2Level.get(i))
-					return false;
-			}
-			return true;
+			if(hasSameOrder(r1, r2Level))
+				return true;
+			return false;
 		}
 		return isSubtree(r1.left, r2) || isSubtree(r1.right, r2);
+	}
+
+	static boolean hasSameOrder(Node r1, ArrayList<Integer> r2Level)
+	{
+		Queue<Node> q = new LinkedList<>();
+		q.add(r1);
+		int i = 0;
+		while(i < r2Level.size() && !q.isEmpty())
+		{
+			int size = q.size();
+			for(int j =  0 ; i < r2Level.size() && j < size ; j++)
+			{
+				Node n = q.poll();
+				if(n.val != r2Level.get(i++))
+					return false;
+				if(n.left != null)
+					q.add(n.left);
+				if(n.right != null)
+					q.add(n.right);
+			}
+		}
+		if(i == r2Level.size())
+			return true;
+		return false;
 	}
 
 	static void levelOrder(Node n, ArrayList<Integer> a)
